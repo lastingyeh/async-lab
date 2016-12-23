@@ -16,8 +16,6 @@
 
 3.npm start
 
-thanks..
-
 ### content-demo
 
 ![alt tag](https://github.com/lastingyeh/async-lab/blob/master/async-lab.jpeg)
