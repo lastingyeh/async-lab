@@ -1,4 +1,4 @@
-react-redux demo...
+## react-redux demo...
 
 1.implements fetch api to get data from internet
 
@@ -8,7 +8,7 @@ react-redux demo...
 
 4.use react-flex to style layout..
 
-install..
+### install..
 
 1.clone this project 
 
@@ -18,7 +18,7 @@ install..
 
 thanks..
 
-content-demo
+### content-demo
 
 ![alt tag](https://github.com/lastingyeh/async-lab/blob/master/async-lab.jpeg)
 
