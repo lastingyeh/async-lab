@@ -20,5 +20,7 @@ body {
     margin-right: 10px;
 }
 
-
+.react-bs-container-header {
+    background-color: lightgray;
+}
 
