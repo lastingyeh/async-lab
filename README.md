@@ -18,6 +18,6 @@
 
 ## content-demo
 
-![alt tag](https://github.com/lastingyeh/async-lab/blob/master/async-lab.jpeg)
+![alt tag](https://github.com/lastingyeh/async-lab/blob/master/rwd-react.gif)
 
 refs by react-redux https://github.com/reactjs/redux/tree/master/examples/async
