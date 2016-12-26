@@ -7,15 +7,15 @@ class CardView extends Component {
         author: '',
         created: '',
         title: '',
-        onCellClick: () => {
-        }
+        onClick: () => {
+        },
     }
 
     static propTypes = {
         author: PropTypes.string,
         created: PropTypes.string,
         title: PropTypes.string,
-        onCellClick: PropTypes.func,
+        onClick: PropTypes.func,
     }
 
     render() {
@@ -23,7 +23,7 @@ class CardView extends Component {
         let {author, created, title, onClick} = this.props
 
         return (
-            <Grid className="card-container" onClick={e => onClick(e.target)}>
+            <Grid className="card-container" onClick={() => onClick(author)}>
                 <Row>
                     <Col xs={4}>
                         <h3>{author}</h3>

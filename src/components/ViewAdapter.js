@@ -1,21 +1,16 @@
-import React, {Component, PropTypes} from 'react'
+import React from 'react';
 
-class ViewAdapter extends Component {
+class ViewAdapter {
 
-    static propTypes = {
-        viewSet: PropTypes.element.isRequired,
-        dataList: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
-    }
-
-    render() {
-        const {viewSet, dataList} = this.props
-
-        let dataUseList = dataList.map((data, index) => {
+    static getViews(viewSet, newData) {
+        
+        let dataUseList = newData.map((data, index) => {
 
             let props = {}
 
-            for (let pKey in viewSet.type.propTypes) {
-                if (!viewSet.type.propTypes.hasOwnProperty(pKey)) continue;
+            for (let pKey in data) {
+
+                if (!data.hasOwnProperty(pKey)) continue
 
                 props[pKey] = data[pKey]
             }
@@ -23,14 +18,7 @@ class ViewAdapter extends Component {
             return React.cloneElement(viewSet, {...props, key: index});
         })
 
-        console.log('dataUseList', dataUseList)
-
-        return (
-            <div>
-                {dataUseList}
-            </div>
-
-        )
+        return dataUseList
     }
 }
 

@@ -88,8 +88,9 @@ class App extends Component {
         }
     }
 
-    onCellClick = (e) => {
-        console.log('trigger onCellClick',e)
+    onHandleClick = author => {
+
+        console.log('trigger onCellClick', author)
     }
 
     render() {
@@ -98,7 +99,7 @@ class App extends Component {
         const isEmpty = posts.length === 0
 
         let newData = []
-        let view = {}
+        let views = {}
         //create data for ViewAdapter
         if (posts && posts.length > 0) {
 
@@ -108,7 +109,10 @@ class App extends Component {
                 title: item.title
             }))
 
-            view = <ViewAdapter viewSet={<CardView onClick={this.onCellClick}/>} dataList={newData}/>
+
+            let cardView = <CardView onClick={this.onHandleClick}/>
+
+            views = ViewAdapter.getViews(cardView, newData)
         }
 
         return (
@@ -127,13 +131,14 @@ class App extends Component {
                     (isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
                     :
                     (this.state.isMobileSize ?
-                        view
+                        views
                         :
                         <div style={{opacity: isFetching ? 0.5 : 1}}>
                             <Table posts={posts} tableStyle="tableStyle"/>
                         </div>)
                 }
                 <hr/>
+                <CardView author={'hello'} created={'2001/2/2'} title={'test'} onClick={this.onHandleClick}/>
             </div>
         )
     }
