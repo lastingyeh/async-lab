@@ -22,15 +22,19 @@ export default class BasicTable extends React.Component {
         let dataSource = []
 
         posts.forEach((item) => {
-            dataSource.push({author: item.author, created: moment(new Date(item.created)).format('LL'), title: item.title} )
+            dataSource.push({
+                author: item.author,
+                created: moment(new Date(item.created)).format('LL'),
+                title: item.title
+            })
         })
 
-        console.log(dataSource)
+        //console.log(dataSource)
 
         return (
-            <BootstrapTable ref='table' data={ dataSource } containerClass={tableStyle} selectRow={selectRowProp}
+            <BootstrapTable ref='table' data={dataSource} containerClass={tableStyle} selectRow={selectRowProp}
                             pagingEnabled={true} pagination>
-                <TableHeaderColumn dataField='author' isKey={ true }>Author</TableHeaderColumn>
+                <TableHeaderColumn dataField='author' isKey={true}>Author</TableHeaderColumn>
                 <TableHeaderColumn dataField='created'>Created</TableHeaderColumn>
                 <TableHeaderColumn dataField='title'>Title</TableHeaderColumn>
             </BootstrapTable>

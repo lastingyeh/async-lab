@@ -1,12 +1,24 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
+import moment from 'moment'
 
 import {selectReddit, fetchPostsIfNeeded, invalidateReddit} from '../actions'
 import Picker from '../components/Picker'
 
 import Table from '../components/Table'
+import ViewAdapter from '../components/ViewAdapter'
+import CardView from '../components/CardView';
 
 class App extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isMobileSize: false
+        }
+    }
+
     static propTypes = {
         selectedReddit: PropTypes.string.isRequired,
         posts: PropTypes.array.isRequired,
@@ -19,9 +31,13 @@ class App extends Component {
     componentDidMount() {
         //dispatch props from Connect(App) given...
         const {dispatch, selectedReddit} = this.props
-        console.log('dispatch:', dispatch(fetchPostsIfNeeded(selectedReddit)))
+
         dispatch(fetchPostsIfNeeded(selectedReddit))
 
+        if (!this.detectMobile()) {
+            this.onResponseDetect()
+            window.onresize = () => this.onResponseDetect()
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -43,9 +59,58 @@ class App extends Component {
         dispatch(fetchPostsIfNeeded(selectedReddit))
     }
 
+    detectMobile = () => {
+        if (navigator.userAgent.match(/Android/i)
+            || navigator.userAgent.match(/webOS/i)
+            || navigator.userAgent.match(/iPhone/i)
+            || navigator.userAgent.match(/iPad/i)
+            || navigator.userAgent.match(/iPod/i)
+            || navigator.userAgent.match(/BlackBerry/i)
+            || navigator.userAgent.match(/Windows Phone/i)
+        ) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    onResponseDetect = () => {
+
+        if (window.innerWidth <= 800) {
+            this.setState({
+                isMobileSize: true
+            });
+        } else {
+            this.setState({
+                isMobileSize: false
+            })
+        }
+    }
+
+    onCellClick = (e) => {
+        console.log('trigger onCellClick',e)
+    }
+
     render() {
+
         const {selectedReddit, posts, isFetching, lastUpdated} = this.props
         const isEmpty = posts.length === 0
+
+        let newData = []
+        let view = {}
+        //create data for ViewAdapter
+        if (posts && posts.length > 0) {
+
+            posts.forEach((item) => newData.push({
+                author: item.author,
+                created: moment(new Date(item.created)).format('LL'),
+                title: item.title
+            }))
+
+            view = <ViewAdapter viewSet={<CardView onClick={this.onCellClick}/>} dataList={newData}/>
+        }
+
         return (
             <div className="container">
                 <Picker value={selectedReddit}
@@ -58,11 +123,15 @@ class App extends Component {
                     {!isFetching && <a href="#" onClick={this.handleRefreshClick}>Refresh</a>}
                 </p>
 
-                {isEmpty
-                    ? (isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-                    : <div style={{opacity: isFetching ? 0.5 : 1}}>
-                        <Table posts={posts} tableStyle="tableStyle"/>
-                    </div>
+                {isEmpty ?
+                    (isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+                    :
+                    (this.state.isMobileSize ?
+                        view
+                        :
+                        <div style={{opacity: isFetching ? 0.5 : 1}}>
+                            <Table posts={posts} tableStyle="tableStyle"/>
+                        </div>)
                 }
                 <hr/>
             </div>

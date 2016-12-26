@@ -24,3 +24,11 @@ body {
     background-color: lightgray;
 }
 
+.card-container {
+    border: 2px solid #f0f0f5;
+}
+
+.card-content{
+    margin-top: 20px;
+}
+
