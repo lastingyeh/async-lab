@@ -3,7 +3,7 @@ import React from 'react';
 class ViewAdapter {
 
     static getViews(viewSet, newData) {
-        
+
         let dataUseList = newData.map((data, index) => {
 
             let props = {}

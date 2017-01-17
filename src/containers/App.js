@@ -88,9 +88,13 @@ class App extends Component {
         }
     }
 
-    onHandleClick = author => {
+    onHandleClick = (author,title) => {
 
-        console.log('trigger onCellClick', author)
+        console.log('trigger onCellClick', author,title)
+    }
+
+    test = (msg)=>{
+        alert(msg);
     }
 
     render() {
@@ -110,7 +114,7 @@ class App extends Component {
             }))
 
 
-            let cardView = <CardView onClick={this.onHandleClick}/>
+            let cardView = <CardView onPress={this.onHandleClick}/>
 
             views = ViewAdapter.getViews(cardView, newData)
         }
