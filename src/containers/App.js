@@ -9,6 +9,9 @@ import Table from '../components/Table'
 import ViewAdapter from '../components/ViewAdapter'
 import CardView from '../components/CardView';
 
+import PageTable from '../components/PageTable';
+import Loading from '../components/Loading';
+
 class App extends Component {
 
     constructor(props) {
@@ -88,18 +91,14 @@ class App extends Component {
         }
     }
 
-    onHandleClick = (author,title) => {
+    onHandleClick = (author, title) => {
 
-        console.log('trigger onCellClick', author,title)
-    }
-
-    test = (msg)=>{
-        alert(msg);
+        console.log('trigger onCellClick', author, title)
     }
 
     render() {
 
-        const {selectedReddit, posts, isFetching, lastUpdated} = this.props
+        const {selectedReddit, posts, isFetching, lastUpdated, testData} = this.props
         const isEmpty = posts.length === 0
 
         let newData = []
@@ -121,6 +120,9 @@ class App extends Component {
 
         return (
             <div className="container">
+
+                <PageTable dataSource={testData}/>
+
                 <Picker value={selectedReddit}
                         onChange={this.handleChange}
                         options={['reactjs', 'frontend']}/>
@@ -132,7 +134,7 @@ class App extends Component {
                 </p>
 
                 {isEmpty ?
-                    (isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+                    (isFetching ? <Loading/> : null)
                     :
                     (this.state.isMobileSize ?
                         views
@@ -142,14 +144,16 @@ class App extends Component {
                         </div>)
                 }
                 <hr/>
-                <CardView author={'hello'} created={'2001/2/2'} title={'test'} onClick={this.onHandleClick}/>
             </div>
         )
     }
 }
 
 const mapStateToProps = state => {
-    const {selectedReddit, postsByReddit} = state
+    const {selectedReddit, postsByReddit, testData} = state
+
+    //console.log('testData', testData);
+
     const {
         isFetching,
         lastUpdated,
@@ -163,7 +167,8 @@ const mapStateToProps = state => {
         selectedReddit,
         posts,
         isFetching,
-        lastUpdated
+        lastUpdated,
+        testData,
     }
 }
 

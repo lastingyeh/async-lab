@@ -24,7 +24,7 @@ class CardView extends Component {
         //As onClick-event triggered, run onPress(author,title) func (implements in App's onHandleClick)
         //onClick -> onPress(author,title) -> onHandleClick
         return (
-            <Grid className="card-container" onClick={() => onPress(author,title)}>
+            <Grid className="card-container" onClick={() => onPress(author, title)}>
                 <Row>
                     <Col xs={4}>
                         <h3>{author}</h3>

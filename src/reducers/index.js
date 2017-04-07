@@ -1,8 +1,11 @@
-import { combineReducers } from 'redux'
+import {combineReducers} from 'redux'
 import {
     SELECT_REDDIT, INVALIDATE_REDDIT,
     REQUEST_POSTS, RECEIVE_POSTS
 } from '../actions'
+
+//testData
+import {generateTestData} from './TestData';
 
 const selectedReddit = (state = 'reactjs', action) => {
     switch (action.type) {
@@ -16,7 +19,7 @@ const selectedReddit = (state = 'reactjs', action) => {
 const posts = (state = {
     isFetching: false,
     didInvalidate: false,
-    items: []
+    items: [],
 }, action) => {
     switch (action.type) {
         case INVALIDATE_REDDIT:
@@ -43,7 +46,7 @@ const posts = (state = {
     }
 }
 
-const postsByReddit = (state = { }, action) => {
+const postsByReddit = (state = {}, action) => {
     switch (action.type) {
         case INVALIDATE_REDDIT:
         case RECEIVE_POSTS:
@@ -59,7 +62,8 @@ const postsByReddit = (state = { }, action) => {
 
 const rootReducer = combineReducers({
     postsByReddit,
-    selectedReddit
+    selectedReddit,
+    testData: generateTestData,
 })
 
 export default rootReducer
